@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useCallback, useState, useEffect } from "react";
 
 export const WatchlistContext = createContext();
 
@@ -11,15 +11,15 @@ export const WatchlistProvider = ({ children }) => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
-  const addPlayer = (player) => {
+  const addPlayer = useCallback((player) => {
     setWatchlist((prev) =>
       prev.some((p) => p.id === player.id) ? prev : [...prev, player]
     );
-  };
+  }, []);
 
-  const removePlayer = (playerId) => {
+  const removePlayer = useCallback((playerId) => {
     setWatchlist((prev) => prev.filter((p) => p.id !== playerId));
-  };
+  }, []);
 
   return (
     <WatchlistContext.Provider value={{ watchlist, addPlayer, removePlayer }}>
