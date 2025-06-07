@@ -7,9 +7,11 @@ const PlayerStats = ({ playerId }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!playerId) return;
+
     const getStats = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const data = await fetchPlayerStats(playerId);
         setStats(data);
       } catch (err) {
@@ -19,14 +21,12 @@ const PlayerStats = ({ playerId }) => {
       }
     };
 
-    if (playerId) {
-      getStats();
-    }
+    getStats();
   }, [playerId]);
 
   if (loading) return <p>Loading stats...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!stats) return <p>No stats available for this player.</p>;
+  if (!stats) return <p>No stats available.</p>;
 
   return (
     <div>
