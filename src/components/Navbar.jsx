@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-
+import "./Navbar.css"; // Assuming you want some basic styling
+import "../styles/Navbar.css";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/watchlist">Watchlist</Link>
+    <nav className="navbar">
+      <Link to="/" className="nav-link">Home</Link>
+      <Link to="/watchlist" className="nav-link">Watchlist</Link>
       {user ? (
-        <>
+        <div className="nav-user">
           <span>Welcome, {user.username}!</span>
-          <button onClick={logout}>Logout</button>
-        </>
+          <button onClick={logout} className="logout-btn">Logout</button>
+        </div>
       ) : (
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="nav-link">Login</Link>
       )}
     </nav>
   );
