@@ -5,7 +5,7 @@ const WatchlistManager = () => {
   const { watchlist, removePlayer } = useContext(WatchlistContext);
   const [sortBy, setSortBy] = useState("name");
 
-  const sortedWatchlist = [...watchlist].sort((a, b) => 
+  const sortedWatchlist = [...watchlist].sort((a, b) =>
     a[sortBy].localeCompare(b[sortBy])
   );
 
@@ -13,7 +13,7 @@ const WatchlistManager = () => {
     <div>
       <h2>Watchlist</h2>
       <label>Sort by:</label>
-      <select onChange={(e) => setSortBy(e.target.value)}>
+      <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
         <option value="name">Name</option>
         <option value="team">Team</option>
       </select>

@@ -3,25 +3,22 @@ import React, { createContext, useState, useEffect } from "react";
 export const WatchlistContext = createContext();
 
 export const WatchlistProvider = ({ children }) => {
-  const [watchlist, setWatchlist] = useState([]);
-
-  useEffect(() => {
-    const storedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
-    setWatchlist(storedWatchlist);
-  }, []);
+  const [watchlist, setWatchlist] = useState(() => {
+    return JSON.parse(localStorage.getItem("watchlist")) || [];
+  });
 
   useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }, [watchlist]);
 
   const addPlayer = (player) => {
-    if (!watchlist.find((p) => p.id === player.id)) {
-      setWatchlist([...watchlist, player]);
-    }
+    setWatchlist((prev) =>
+      prev.some((p) => p.id === player.id) ? prev : [...prev, player]
+    );
   };
 
   const removePlayer = (playerId) => {
-    setWatchlist(watchlist.filter((p) => p.id !== playerId));
+    setWatchlist((prev) => prev.filter((p) => p.id !== playerId));
   };
 
   return (
