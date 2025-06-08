@@ -1,29 +1,22 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import { appRoutes } from "./routes";
-import { AuthProvider } from "./context/AuthContext";
-import { WatchlistProvider } from "./context/WatchlistContext";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme"; // Corrected import
+import HomePage from "./pages/HomePage";
+import Watchlist from "./components/Watchlist";
+import LoginPage from "./pages/LoginPage";
+import AddPlayer from "./components/AddPlayer"; // ✅ Correctly importing AddPlayer
 
-const App = () => {
+function App() {
   return (
-    <AuthProvider>
-      <WatchlistProvider>
-        <ThemeProvider theme={theme}>
-          <Navbar />
-          <Routes>
-            {appRoutes.map(({ path, element }, index) => (
-              <Route key={index} path={path} element={element} />
-            ))}
-          </Routes>
-          <Footer />
-        </ThemeProvider>
-      </WatchlistProvider>
-    </AuthProvider>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/add-player" element={<AddPlayer />} /> {/* ✅ Fixed reference */}
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;

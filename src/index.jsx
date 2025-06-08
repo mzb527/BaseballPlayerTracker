@@ -1,11 +1,13 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
-import "./styles/global.css";
+import { WatchlistProvider } from "./context/WatchlistContext"; // ✅ Ensure correct path
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+const root = createRoot(document.getElementById("root")); // ✅ Use React 18 `createRoot`
+root.render(
+  <React.StrictMode>
+    <WatchlistProvider>
+      <App />
+    </WatchlistProvider>
+  </React.StrictMode>
 );
