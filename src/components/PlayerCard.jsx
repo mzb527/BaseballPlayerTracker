@@ -1,13 +1,22 @@
 import React from "react";
-import AddPlayer from "./AddPlayer";
+import "../styles/PlayerCard.css"; // ✅ Updated path to styles folder
 
 const PlayerCard = ({ player }) => {
+  console.log("🚀 Rendering PlayerCard component for:", player.fullName);
+
+  if (!player || !player.id) {
+    console.error("❌ PlayerCard: Invalid player object received:", player);
+    return null;
+  }
+
   return (
     <div className="player-card">
-      <h3>{player.name}</h3>
-      <p>Team: {player.team}</p>
-      <p>Position: {player.position}</p>
-      <AddPlayer player={player} /> {/* ✅ Add button here */}
+      <p>✅ PlayerCard Component Loaded</p>
+      <h3>{player.fullName || "Unknown Player"}</h3>
+      <p>Position: {player.primaryPosition?.name || "Unknown"}</p>
+      <p>Jersey Number: {player.primaryNumber || "N/A"}</p>
+      <p>Debut Date: {player.mlbDebutDate || "N/A"}</p>
+      <p>Nickname: {player.nickName || "None"}</p>
     </div>
   );
 };
