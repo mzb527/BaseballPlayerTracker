@@ -6,7 +6,7 @@ import { appRoutes } from "./routes";
 import { AuthProvider } from "./context/AuthContext";
 import { WatchlistProvider } from "./context/WatchlistContext";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./theme";
+import theme from "./theme"; // Corrected import
 
 const App = () => {
   return (
